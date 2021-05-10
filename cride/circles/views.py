@@ -1,5 +1,5 @@
 """Circles views"""
-
+"""Update: now this class is not necessary"""
 # Django REST Framework
 from rest_framework.decorators import api_view
 from rest_framework.response import  Response

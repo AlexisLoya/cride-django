@@ -1,4 +1,5 @@
 """Circle serializers"""
+"""Update: now this class is not necessary"""
 
 # Django
 from rest_framework import serializers
