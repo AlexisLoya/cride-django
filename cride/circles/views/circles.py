@@ -11,6 +11,9 @@ from cride.circles.serializers.circle import CircleModelSerializer
 # Model
 from cride.circles.models import Circle, Membership
 
+# Filters
+from rest_framework.filters import SearchFilter, OrderingFilter
+
 class CircleViewSet(mixins.CreateModelMixin,
                     mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -19,6 +22,11 @@ class CircleViewSet(mixins.CreateModelMixin,
     """Circle view set"""
     serializer_class = CircleModelSerializer
     lookup_field = 'slug_name'
+
+
+    # Filters
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('slug_name','name')
 
 
     def get_queryset(self):
