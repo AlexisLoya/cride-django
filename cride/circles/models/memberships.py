@@ -25,9 +25,9 @@ class Membership(CRideModel):
     )
 
     # Invitation
-    used_invitation = models.PositiveSmallIntegerField(default=0)
+    used_invitations = models.PositiveSmallIntegerField(default=0)
 
-    remainig_invitations = models.PositiveSmallIntegerField(default=0)
+    remaining_invitations = models.PositiveSmallIntegerField(default=0)
 
     invited_by = models.ForeignKey(
         'users.User',
