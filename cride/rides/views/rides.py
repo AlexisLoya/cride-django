@@ -69,12 +69,14 @@ class RideViewSet(mixins.CreateModelMixin,
             return JoinRideSerializer
         elif self.action == 'finish':
             return EndRideSerializer
+        elif self.action == 'rate':
+            return CreateRideRatingSerializer
 
         return RideModelSerializer
 
     def get_queryset(self):
         """return active circle's ride"""
-        if self.action != 'finish':
+        if self.action not in ['finish', 'retrieve']:
             offset = timezone.now() + timedelta(seconds=60)
 
             return self.circle.ride_set.filter(
@@ -115,3 +117,17 @@ class RideViewSet(mixins.CreateModelMixin,
         ride = serializer.save()
         data = RideModelSerializer(ride).data
         return Response(data, status=status.HTTP_200_OK)
+
+
+    @action(methods=['post'], detail=True)
+    def rate(self, request, *args, **kwargs):
+        """Rate ride"""
+        ride = self.get_object()
+        serializer_class = self.serializer_class()
+        context = self.get_serializer_context()
+        context['ride'] = ride
+        serializer = serializer_class(data=request.data, context=context)
+        serializer.is_valid(raise_exception=True)
+        ride = serializer.save()
+        data = RideModelSerializer(ride).data
+        return Response(data, status=status.HTTP_201_CREATED)

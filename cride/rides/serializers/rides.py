@@ -190,3 +190,5 @@ class EndRideSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Ride has not started yet")
 
         return data
+
+
