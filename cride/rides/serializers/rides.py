@@ -74,3 +74,12 @@ class CreateRideSerializer(serializers.ModelSerializer):
 
         return ride
 
+class RideModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ride
+        fields = '__all__'
+        read_only_fields = (
+            'offered_by',
+            'offered_in',
+            'rating'
+        )
